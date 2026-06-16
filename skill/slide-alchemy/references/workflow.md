@@ -4,6 +4,8 @@ Every editable-PPTX conversion must run the full workflow. Do not skip steps for
 
 Image generation/editing model use is mandatory for clean bases, `icon_png` asset sheets, `complex_png_whole` asset sheets, and regenerated visual assets. Do not replace those steps with local masking, local inpainting, direct source-image crops, copied screenshot fragments, PPT native shape approximations, or generic presentation templates.
 
+When regenerating any image asset, remove image noise and high-frequency visual artifacts while preserving all kept linework. Keep colors and brightness unchanged.
+
 Run this workflow in order. Each section produces an artifact that is required by the next section. Do not jump to final PPTX composition until source pages, base grouping, approved or unattended-run bases, element analysis, generated assets, sliced assets, text layout, and compose spec are ready.
 
 If a required artifact is missing, create it before continuing. Do not replace missing artifacts with assumptions.
@@ -71,6 +73,8 @@ Use the rendered source slide as the edit target. Generate a clean base that kee
 
 Use `base-prompt-template.md` unless the user supplies a stronger prompt.
 
+The generated base must be visually clean: remove noise and high-frequency artifacts from kept background areas, preserve kept linework, and keep colors and brightness unchanged.
+
 Default removal targets:
 
 - all text and page numbers,
@@ -122,6 +126,8 @@ Create SVGs only for simple layout geometry and generated PNGs for semantic icon
 PNG sheets must be generated with an image generation/editing model, then sliced. Never crop `icon_png` or `complex_png_whole` assets directly from the original/source slide image. The source slide can be used as a visual reference or edit target, but the deliverable icon assets must come from regenerated asset sheets.
 
 PNG sheets must not mix simple geometry with icons. If a PNG icon is near a frame, line, or card in the sheet, regenerate the sheet with more whitespace or isolate that icon. Do not rebuild semantic icons with native PPT shapes just because they are made of simple lines; use generated PNG unless the user explicitly prioritizes editability over visual fidelity for that icon.
+
+Regenerated PNG sheets must be clean and low-noise. Remove high-frequency visual artifacts, preserve icon linework, and keep colors and brightness unchanged.
 
 Use `icon-sheet-prompt-template.md` for PNG sheets and `svg-to-ooxml.md` for simple geometry SVG conversion.
 

@@ -40,6 +40,8 @@ Image generation/editing model use is mandatory for:
 - `complex_png_whole` asset sheets;
 - any regenerated visual asset that must match the image PPT.
 
+Every regenerated image asset must remove image noise and high-frequency visual artifacts while preserving all kept linework. Colors and brightness must remain unchanged.
+
 Do not replace those model steps with local white masks, local inpainting, direct source-image crops, copied screenshot fragments, PPT native shape approximations, or generic presentation templates.
 
 ## Execution Discipline
@@ -91,7 +93,7 @@ The lead agent must merge all page-level outputs, deduplicate shared components,
    Inspect the source page images first, identify likely cover/content/ending/custom base groups, then present a recommended grouping to the user. This is the first hard gate: ask the user to accept or modify the recommendation before generating bases, unless the user explicitly asked for an unattended full run. Do not continue in the same turn after presenting the grouping.
 
 3. Generate clean bases with an image generation/editing model.
-   The default base is a general background: keep outer background, edge decoration, ambient texture, and theme visuals; remove all text, icons, cards, boxes, title bars, and central content. Only preserve central layout containers if the user explicitly asks for template containers.
+   The default base is a general background: keep outer background, edge decoration, ambient texture, and theme visuals; remove all text, icons, cards, boxes, title bars, and central content. Remove image noise and high-frequency visual artifacts from kept areas while preserving kept linework, colors, and brightness. Only preserve central layout containers if the user explicitly asks for template containers.
 
    This is the second hard gate: after generating base preview images, show the bases to the user and wait for approval before extracting elements, unless the user explicitly requested an unattended full run. Do not continue in the same turn after presenting base previews.
 
@@ -109,7 +111,7 @@ The lead agent must merge all page-level outputs, deduplicate shared components,
    Generate one star and copy/scale it. Generate one card base and one title bar and reuse them. Do not generate separate PNGs for repeated simple geometry.
 
 7. Generate PNG asset sheets only for PNG categories.
-   Keep `simple_geometry_svg_ooxml` elements out of PNG sheets. PNG sheets must be generated with an image generation/editing model on a high-contrast solid key color and large empty space around each icon. Complex icons may be generated one per sheet. Never crop `icon_png` or `complex_png_whole` assets directly from the original/source slide image; the source slide is only a visual reference or edit target for regeneration.
+   Keep `simple_geometry_svg_ooxml` elements out of PNG sheets. PNG sheets must be generated with an image generation/editing model on a high-contrast solid key color and large empty space around each icon. Complex icons may be generated one per sheet. Remove noise and high-frequency visual artifacts from regenerated PNG assets while preserving icon linework, colors, and brightness. Never crop `icon_png` or `complex_png_whole` assets directly from the original/source slide image; the source slide is only a visual reference or edit target for regeneration.
 
 8. Slice PNG assets conservatively.
    Preserve padding around every transparent PNG. Run edge-touch checks and create contact sheets. If any icon touches a crop edge, is truncated, or includes neighboring elements, regenerate the sheet or recrop with more space.

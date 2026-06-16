@@ -9,6 +9,8 @@ Use the displayed slide image only as the visual reference/edit target. Regenera
 Make one 16:9 asset sheet with solid key-color background <#00ff00 or #ff00ff>.
 Do not include any normal text, labels, page numbers, grid lines, frames, title bars, card boxes, stars, simple lines, or other simple geometry.
 Each icon must have large empty space on all sides. Icons must not touch each other.
+Remove image noise and high-frequency visual artifacts from the regenerated icons.
+Preserve all icon linework exactly. Keep colors and brightness unchanged.
 Preserve the original icon style, colors, highlights, shadows, and proportions.
 For complex composite icons, place each whole composite as one isolated asset; do not split it.
 Output only the asset sheet, not the slide background.

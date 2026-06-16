@@ -5,6 +5,9 @@ Use this template when asking an image generation/editing model to create a base
 ```text
 Use the displayed slide image as the only edit target. Generate a 16:9 clean base background.
 
+Remove image noise and high-frequency visual artifacts from all kept areas.
+Preserve all kept linework exactly. Keep colors and brightness unchanged.
+
 Keep:
 - outer edge decoration and background atmosphere,
 - theme colors, gradients, light effects, and texture,
